@@ -1,0 +1,41 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: invitation-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: invitation_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-StrongPassword123@}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./src/main/resources/sql/create_tables.sql:/docker-entrypoint-initdb.d/01_create_tables.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: invitation-backend
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/invitation_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD:-StrongPassword123@}
+      APP_INVITATION_BASE_URL: ${APP_INVITATION_BASE_URL:-http://localhost:3000}
+      SERVER_PORT: 8088
+    ports:
+      - "8088:8088"
+
+volumes:
+  pgdata:
+

@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: invitation-be
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/postgres}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:123}
+    driver-class-name: org.postgresql.Driver
+
+    hikari:
+      pool-name: MonitoringServiceHikariPool
+      maximum-pool-size: 5
+      minimum-idle: 1
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        format_sql: true
+        order_by:
+          default_null_ordering: last
+        cache:
+          use_second_level_cache: false
+        jdbc:
+          batch_size: 500
+          time_zone: GMT+7
+        order_inserts: true
+        order_updates: true
+server:
+  port: 8088
+
+app:
+  invitation:
+    base-url: ${APP_INVITATION_BASE_URL:http://localhost:3000}
+  vietqr:
+    api-url: ${VIETQR_API_URL:https://api.vietqr.io/v2}
+    image-url: ${VIETQR_IMAGE_URL:https://img.vietqr.io/image}
+    client-id: ${VIETQR_CLIENT_ID:}
+    api-key: ${VIETQR_API_KEY:}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+    display-request-duration: true
+
+
