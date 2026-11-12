@@ -40,10 +40,10 @@ public class InvitedGuestController {
     private final ExcelImportService excelImportService;
 
     @PostMapping
-    @Operation(summary = "Tạo mới khách mời", description = "Admin tạo khách mời; nếu không truyền inviteCode sẽ tự động sinh mã UUID ngẫu nhiên duy nhất")
+    @Operation(summary = "Tạo mới khách mời", description = "Admin tạo khách mời, mã thiệp inviteCode dạng UUID sẽ được hệ thống tự động sinh ngẫu nhiên duy nhất")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Khách mời được tạo thành công"),
-            @ApiResponse(responseCode = "400", description = "Dữ liệu không hợp lệ hoặc mã inviteCode đã tồn tại")
+            @ApiResponse(responseCode = "400", description = "Dữ liệu không hợp lệ")
     })
     public ResponseEntity<minhhang.invitationbe.dto.response.ApiResponse<InvitedGuestResponse>> create(
             @Valid @RequestBody CreateInvitedGuestRequest request

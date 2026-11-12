@@ -38,7 +38,8 @@ public class FamilyGuestGroupController {
     private final ExcelImportService excelImportService;
 
     @PostMapping
-    @Operation(summary = "Tạo mới nhóm khách họ hàng / gia đình")
+    @Operation(summary = "Tạo mới nhóm khách họ hàng / gia đình",
+            description = "Admin tạo nhóm khách, mã thiệp inviteCode dạng UUID sẽ được hệ thống tự động sinh ngẫu nhiên duy nhất")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Tạo nhóm khách thành công"),
             @ApiResponse(responseCode = "400", description = "Dữ liệu không hợp lệ")

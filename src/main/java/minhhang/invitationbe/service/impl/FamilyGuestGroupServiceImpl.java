@@ -32,15 +32,7 @@ public class FamilyGuestGroupServiceImpl implements FamilyGuestGroupService {
 
     @Override
     public FamilyGuestGroupResponse create(CreateFamilyGuestGroupRequest request) {
-        String inviteCode = request.getInviteCode();
-        if (inviteCode == null || inviteCode.isBlank()) {
-            inviteCode = generateUniqueInviteCode();
-        } else {
-            inviteCode = inviteCode.trim();
-            if (familyGuestGroupRepository.existsByInviteCode(inviteCode)) {
-                throw new BadRequestException("Invite code '" + inviteCode + "' already exists");
-            }
-        }
+        String inviteCode = generateUniqueInviteCode();
 
         FamilyGuestGroup group = FamilyGuestGroup.builder()
                 .inviteCode(inviteCode)

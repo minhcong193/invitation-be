@@ -38,15 +38,7 @@ public class InvitedGuestServiceImpl implements InvitedGuestService {
 
     @Override
     public InvitedGuestResponse create(CreateInvitedGuestRequest request) {
-        String inviteCode = request.getInviteCode();
-        if (inviteCode == null || inviteCode.isBlank()) {
-            inviteCode = generateUniqueInviteCode();
-        } else {
-            inviteCode = inviteCode.trim();
-            if (invitedGuestRepository.existsByInviteCode(inviteCode)) {
-                throw new BadRequestException("Invite code '" + inviteCode + "' already exists");
-            }
-        }
+        String inviteCode = generateUniqueInviteCode();
 
         InvitedGuest guest = InvitedGuest.builder()
                 .inviteCode(inviteCode)

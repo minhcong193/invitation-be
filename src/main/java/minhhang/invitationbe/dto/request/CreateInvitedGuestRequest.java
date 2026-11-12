@@ -12,16 +12,8 @@ import minhhang.invitationbe.enums.GuestSide;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Schema(description = "Yêu cầu tạo mới khách mời có mã thiệp")
+@Schema(description = "Yêu cầu tạo mới khách mời (mã thiệp inviteCode tự sinh UUID)")
 public class CreateInvitedGuestRequest {
-
-    @Schema(
-            description = "Mã thiệp mời trên URL (tùy chọn, để trống hệ thống sẽ tự động sinh UUID chuẩn duy nhất)",
-            example = "c9a646d3-9c61-4cc9-bc55-e7eb8863f35c",
-            maxLength = 80
-    )
-    @Size(max = 80, message = "Invite code must not exceed 80 characters")
-    private String inviteCode;
 
     @Schema(
             description = "Họ và tên khách mời",
